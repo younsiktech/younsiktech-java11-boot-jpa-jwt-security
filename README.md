@@ -22,6 +22,6 @@
   - db.url의 reader, writer 값 입력
 
 ``` shell
-java -Dspring.profiles.active=dev -jar work_younsiktech-1.0-SNAPSHOT.jar 
+java -Dspring.profiles.active=dev -jar /build/libs/*.jar 
 ```
 
