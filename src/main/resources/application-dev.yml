@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    username: { USER_NAME }
+    password: { PASSWORD }
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format-sql: true
+db:
+  url:
+    writer: jdbc:mysql://{ HOST }:{ PORT }/{ DB }?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
+    reader: jdbc:mysql://{ HOST }:{ PORT }/{ DB }?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
+logging:
+  level:
+    root: info
+    org.springframework.*: info
+    org.hibernate: info

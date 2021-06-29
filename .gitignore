@@ -1,0 +1,28 @@
+target/
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# gradle
+.gradle
+**/build/
+!**/src/main/**
+!**/src/test/**
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+**/out/
+**/logs/
+# Ignore Gradle build output directory
+build/
+
+### private
+application-local.yml
+*.pid

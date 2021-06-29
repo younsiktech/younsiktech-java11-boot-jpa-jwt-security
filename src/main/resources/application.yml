@@ -1,0 +1,29 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: hikari-cp
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-test-query: select 1
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      use-new-id-generator-mappings: false
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        use_sql_comment: false
+auth:
+  jwt:
+    secret: younsiktech202106JwtTokenWithJavaSpringBoot
+    expire: 3600000
+logging:
+  config: classpath:log4j2-spring.xml
