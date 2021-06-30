@@ -72,6 +72,7 @@ public class Purchase {
     public PurchaseObject toObject() {
         return PurchaseObject.builder()
             .id(id)
+            .userId(userId)
             .name(name)
             .paymentDate(paymentDate)
             .status(status)

@@ -35,8 +35,8 @@ public class PurchaseService {
     }
     
     @Transactional
-    public PurchaseObject createPurchase(PurchaseObject purchaseObject) {
-        Optional<User> optionalUser = userService.findUserByEmail(purchaseObject.getEmail());
+    public PurchaseObject createPurchase(PurchaseObject purchaseObject, String currentUser) {
+        Optional<User> optionalUser = userService.findUserByEmail(currentUser);
         
         if (optionalUser.isEmpty()) {
             log.error("User not exist");
@@ -57,8 +57,9 @@ public class PurchaseService {
     
     @Transactional(readOnly = true)
     public PagingResponse<PurchaseObject> showPurchases(PurchaseObject purchaseObject,
+        String currentUser,
         PageRequest pageRequest) {
-        UserObject userObject = userService.selectUser(purchaseObject.getUserId(), purchaseObject.getEmail());
+        UserObject userObject = userService.selectUser(purchaseObject.getUserId(), currentUser);
         
         List<String> purchaseIds = findPurchaseIdsByUserId(userObject.getId());
         

@@ -8,6 +8,7 @@
 - Java 11
 - Gradle 6.8
 - MySql 5.7
+- Timezone(MySql, Spring) : UTC
   
 ### 빌드방법
 ``` shell

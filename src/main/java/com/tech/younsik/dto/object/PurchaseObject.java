@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class PurchaseObject {
     private String id;
     private Long userId;
-    private String email;
     private String name;
     private LocalDateTime paymentDate;
     private LocalDateTime createdAt;
