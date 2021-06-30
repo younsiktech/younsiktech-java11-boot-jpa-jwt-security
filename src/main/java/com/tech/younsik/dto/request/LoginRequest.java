@@ -2,8 +2,10 @@ package com.tech.younsik.dto.request;
 
 import com.tech.younsik.dto.object.LoginObject;
 import com.tech.younsik.validator.Password;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,16 +20,20 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class LoginRequest implements Serializable {
-
+    
     private static final long serialVersionUID = 1000000000001001L;
-
-    @NotNull(message = "Wrong e-mail : E-mail is empty")
+    
+    @NotNull(message = "Wrong e-mail : E-mail is null")
+    @NotEmpty(message = "Wrong e-mail : E-mail is empty")
     @Email(message = "Wrong e-mail : Invalid format")
-    @Size(min = 4, max = 255, message = "Wrong e-mail : Min 4 to Max 255 required")
+    @Size(max = 100, message = "Wrong e-mail : Max 100 required")
+    @ApiModelProperty(name = "로그인 요청 Email", notes = "Email 형식, 최대 100자", required = true)
     private String email;
-
-    @NotNull(message = "Wrong password : Password is empty")
-    @Password(min = 10, message = "Wrong password : Alphabet, Number, Special exclude white space(Size 8 to 20)")
+    
+    @NotNull(message = "Wrong password : Password is null")
+    @NotEmpty(message = "Wrong password : Password is empty")
+    @Password(min = 10, max = 100, message = "Wrong password : Invalid format")
+    @ApiModelProperty(name = "로그인 요청 Password", notes = "영어 대문자, 소문자, 숫자, 특수문자 1개 이상, 최소 10자 ~ 최대 100자", required = true)
     private String password;
 
     public LoginObject toObject() {

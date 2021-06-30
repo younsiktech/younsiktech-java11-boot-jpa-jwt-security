@@ -1,6 +1,8 @@
 package com.tech.younsik.config.jwt;
 
 import com.tech.younsik.constant.AuthConst;
+import com.tech.younsik.exception.AuthException;
+import com.tech.younsik.exception.AuthException.Type;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import java.io.IOException;
@@ -44,13 +46,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try{
                 subject = jwtAuthProvider.getSubjectFromToken(jwtToken);
             } catch (IllegalArgumentException ex){
-                log.error("Unable to get JWT token", ex);
+                log.error(ex.getMessage());
+                throw new AuthException("Unable to get token", Type.EMPTY_AUTH);
             } catch (ExpiredJwtException ex){
-                log.error("JWT Token has expired", ex);
+                log.error(ex.getMessage());
+                throw new AuthException("Token has expired", Type.EXPIRED_AUTH);
             } catch (JwtException ex) {
-                log.error("token valid error:" + ex.getMessage() ,ex);
+                log.error(ex.getMessage());
+                throw new AuthException("Token valid error", Type.INVALID_AUTH);
             } catch (Exception ex) {
-                log.error("token valid error:" + ex.getMessage() ,ex);
+                log.error(ex.getMessage());
+                throw new AuthException("Token error", Type.UNDEFINED_AUTH_ERROR);
             }
         }else{
             log.warn("JWT token does not begin with Bearer String");

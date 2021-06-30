@@ -1,61 +1,59 @@
 package com.tech.younsik.exception;
 
+
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
-public class AuthException extends ApiException {
+public class DatabaseException extends ApiException {
     
-    private static final long serialVersionUID = 923651117046829481L;
+    private static final long serialVersionUID = 9233425670829231L;
     
     public enum Type {
-        UNAUTHOIRZED,
-        EMPTY_AUTH,
-        INVALID_AUTH,
-        EXPIRED_AUTH,
-        UNDEFINED_AUTH_ERROR
+        GENERATE_KEY_ERROR,
+        UNDEFINED_DATABASE_ERROR
     }
     
-    private Type type;
+    private DatabaseException.Type type;
     
     private Map data;
     
-    public AuthException(Type type) {
+    public DatabaseException(DatabaseException.Type type) {
         this.type = type;
     }
     
-    public AuthException(Type type, Map data) {
-        this.type = type;
-        this.data = data;
-    }
-    
-    public AuthException(String message, Type type) {
-        super(message);
-        this.type = type;
-    }
-    
-    public AuthException(String message, Type type, Map data) {
-        super(message);
+    public DatabaseException(DatabaseException.Type type, Map data) {
         this.type = type;
         this.data = data;
     }
     
-    public AuthException(String message, Throwable cause, Type type) {
+    public DatabaseException(String message, DatabaseException.Type type) {
+        super(message);
+        this.type = type;
+    }
+    
+    public DatabaseException(String message, DatabaseException.Type type, Map data) {
+        super(message);
+        this.type = type;
+        this.data = data;
+    }
+    
+    public DatabaseException(String message, Throwable cause, DatabaseException.Type type) {
         super(message, cause);
         this.type = type;
     }
     
-    public AuthException(Throwable cause, Type type) {
+    public DatabaseException(Throwable cause, DatabaseException.Type type) {
         super(cause);
         this.type = type;
     }
     
-    public AuthException(String message, Throwable cause, boolean enableSuppression,
-        boolean writableStackTrace, Type type) {
+    public DatabaseException(String message, Throwable cause, boolean enableSuppression,
+        boolean writableStackTrace, DatabaseException.Type type) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.type = type;
     }
     
-    public Type getType() {
+    public DatabaseException.Type getType() {
         return type;
     }
     

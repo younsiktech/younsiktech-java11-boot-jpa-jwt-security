@@ -19,6 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
     SpringDataRestConfiguration.class,
     BeanValidatorPluginsConfiguration.class})
 public class SwaggerConfig {
+    
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -31,6 +32,10 @@ public class SwaggerConfig {
     }
     
     private ApiInfo swaggerInfo() {
-        return new ApiInfoBuilder().title("Boot Swagger").description("Boot JWT").version("1.0.0").build();
+        return new ApiInfoBuilder()
+            .title("Younsiktech")
+            .description("java11-boot-jpa-jwt-security")
+            .version("1.0-SNAPSHOT")
+            .build();
     }
 }

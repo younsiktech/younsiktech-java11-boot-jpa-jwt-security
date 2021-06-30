@@ -6,15 +6,15 @@ import javax.persistence.Converter;
 
 @Converter
 public class UserStatusConverter implements AttributeConverter<Status, String> {
-
+    
     @Override
     public String convertToDatabaseColumn(Status attribute) {
-        if(attribute==null) {
+        if (attribute == null) {
             return null;
         }
         return attribute.getDbCode();
     }
-
+    
     @Override
     public Status convertToEntityAttribute(String dbData) {
         return Status.fromDbCode(dbData);

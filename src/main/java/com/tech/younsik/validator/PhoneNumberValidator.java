@@ -17,7 +17,7 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, St
 
     @Override
     public boolean isValid(String phone, ConstraintValidatorContext context) {
-        // 숫자만 최대 20자리 regex
+        // 숫자만 1개 이상 최대자리 regex
         String regex = "^(?=.*\\d)[\\d]{1," + max + "}$";
         return Pattern.compile(regex).matcher(phone).find();
     }

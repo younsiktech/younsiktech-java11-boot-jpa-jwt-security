@@ -13,13 +13,12 @@ import javax.validation.Payload;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PhoneNumber {
-
+    
     String message() default "Invalid Phone Number";
-
+    
     Class<?>[] groups() default {};
-
+    
     Class<? extends Payload>[] payload() default {};
-
-    // window password limit
+    
     public int max() default 255;
 }

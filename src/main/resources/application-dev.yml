@@ -11,10 +11,11 @@ spring:
         format-sql: true
 db:
   url:
-    writer: jdbc:mysql://{ HOST }:{ PORT }/{ DB }?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
-    reader: jdbc:mysql://{ HOST }:{ PORT }/{ DB }?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
+    writer: jdbc:mysql://{ HOST }:{ PORT }/{ DB }?useSSL=false&useUnicode=true&serverTimezone=UTC&autoReconnect=true
+    reader: jdbc:mysql://{ HOST }:{ PORT }/{ DB }?useSSL=false&useUnicode=true&serverTimezone=UTC&autoReconnect=true
 logging:
   level:
     root: info
     org.springframework.*: info
     org.hibernate: info
+    io.swagger.*: error

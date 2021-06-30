@@ -1,5 +1,6 @@
 package com.tech.younsik.config.generator;
 
+import com.tech.younsik.exception.DatabaseException;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Properties;
@@ -7,6 +8,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.exception.DataException;
 import org.hibernate.id.Configurable;
 import org.hibernate.id.IdentifierGenerator;
 import org.hibernate.service.ServiceRegistry;
@@ -26,7 +28,7 @@ public class PurchaseIdGenerator implements IdentifierGenerator, Configurable {
         int pow = KEY_LIMIT - prefix.length();
 
         if (pow < 0) {
-            throw new RuntimeException("");
+            throw new DatabaseException("Key limit exceed", DatabaseException.Type.GENERATE_KEY_ERROR);
         } else if (pow==0) {
             return prefix;
         }

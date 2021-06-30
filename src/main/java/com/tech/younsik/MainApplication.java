@@ -21,13 +21,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableJpaAuditing
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class MainApplication {
+    
     @PostConstruct
     void started() {
+        log.info("DEFAULT TIME ZONE : UTC");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
     
     public static void main(String[] args) {
         SpringApplication.run(MainApplication.class, args);
-        log.debug(">>>> Spring started");
     }
 }

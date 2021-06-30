@@ -18,31 +18,32 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice(basePackages = {"com.tech.younsik.controller"})
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ExceptionHandler {
-
+    
     private final org.apache.commons.logging.Log log = LogFactory.getLog(getClass());
-
+    
     private final ObjectMapper objectMapper = new ObjectMapper();
-
+    
     @org.springframework.web.bind.annotation.ExceptionHandler(value = MethodArgumentNotValidException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorResponse methodArgumentNotValidException(MethodArgumentNotValidException e) {
         return new ErrorResponse.Builder()
-                .setCode(ErrorCode.BAD_REQUEST)
-                .setMsg(e.getBindingResult().getAllErrors().get(0).getDefaultMessage())
-                .build();
+            .setCode(ErrorCode.BAD_REQUEST)
+            .setMsg(e.getBindingResult().getAllErrors().get(0).getDefaultMessage())
+            .build();
     }
-
+    
     @org.springframework.web.bind.annotation.ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ErrorResponse methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    public ErrorResponse methodArgumentTypeMismatchException(
+        MethodArgumentTypeMismatchException e) {
         return new ErrorResponse.Builder()
             .setCode(ErrorCode.INVALID_ARGS)
             .setMsg(e.getMessage())
             .build();
     }
-
+    
     @org.springframework.web.bind.annotation.ExceptionHandler(value = InvalidParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -53,7 +54,7 @@ public class ExceptionHandler {
             .setFieldErrorData(e.getErrorList())
             .build();
     }
-
+    
     @org.springframework.web.bind.annotation.ExceptionHandler(value = HttpStatusCodeException.class)
     @ResponseBody
     public ResponseEntity<ErrorResponse> httpStatusCodeException(HttpStatusCodeException e) {
@@ -69,13 +70,13 @@ public class ExceptionHandler {
                 .build(), e.getStatusCode());
         }
     }
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(value = UserException.class)
+    
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = {UserException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorResponse userException(UserException e) {
         int code = ErrorCode.BAD_REQUEST;
-
+        
         switch (e.getType()) {
             case INVALID_EMAIL:
                 code = ErrorCode.INVALID_EMAIL;
@@ -95,19 +96,19 @@ public class ExceptionHandler {
             default:
                 break;
         }
-
+        
         return new ErrorResponse.Builder()
-                .setCode(code)
-                .setMsg(e.getMessage())
-                .build();
+            .setCode(code)
+            .setMsg(e.getMessage())
+            .build();
     }
-
-    @org.springframework.web.bind.annotation.ExceptionHandler(value = AuthException.class)
+    
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = {AuthException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public ErrorResponse authException(AuthException e) {
         int code = ErrorCode.UNAUTHOIRZED;
-
+        
         switch (e.getType()) {
             case EMPTY_AUTH:
                 code = ErrorCode.EMPTY_AUTH;
@@ -118,13 +119,38 @@ public class ExceptionHandler {
             case EXPIRED_AUTH:
                 code = ErrorCode.EXPIRED_AUTH;
                 break;
+            case UNDEFINED_AUTH_ERROR:
+                code = ErrorCode.UNDEFINED_AUTH_ERROR;
+                break;
+            case UNAUTHOIRZED:
             default:
                 break;
         }
-
+        
         return new ErrorResponse.Builder()
-                .setCode(code)
-                .setMsg(e.getMessage())
-                .build();
+            .setCode(code)
+            .setMsg(e.getMessage())
+            .build();
+    }
+    
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = {DatabaseException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorResponse authException(DatabaseException e) {
+        int code = ErrorCode.INTERNAL_SERVER_ERROR;
+        
+        switch (e.getType()) {
+            case GENERATE_KEY_ERROR:
+                code = ErrorCode.GENERATE_KEY_ERROR;
+                break;
+            case UNDEFINED_DATABASE_ERROR:
+            default:
+                break;
+        }
+        
+        return new ErrorResponse.Builder()
+            .setCode(code)
+            .setMsg(e.getMessage())
+            .build();
     }
 }

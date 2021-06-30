@@ -28,7 +28,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(value = {AuditingEntityListener.class})
-@Table(name = "purchase")
+@Table(name = "purchases")
 public class Purchase {
 
     // 중복이 불가능한 임의의 영문 대문자, 숫자 조합 - 12자 제한
@@ -41,7 +41,7 @@ public class Purchase {
     private String id;
 
     // emoji 를 포함한 모든 문자 - 100자 제한
-    @Column(name = "name")
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "user_id")

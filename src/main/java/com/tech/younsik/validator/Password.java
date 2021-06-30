@@ -13,16 +13,14 @@ import javax.validation.Payload;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Password {
-
+    
     String message() default "Invalid Password";
-
+    
     Class<?>[] groups() default {};
-
+    
     Class<? extends Payload>[] payload() default {};
-
-    // custom
+    
     public int min() default 8;
-
-    // window password limit
+    
     public int max() default 255;
 }

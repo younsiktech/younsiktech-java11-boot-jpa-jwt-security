@@ -14,7 +14,8 @@ public class UserException extends ApiException {
         INVALID_PASSWORD,
         ALREADY_EXIST,
         USER_NOT_FOUND,
-        WRONG_PASSWORD
+        WRONG_PASSWORD,
+        INVALID_STATUS
     }
 
     private Type type;

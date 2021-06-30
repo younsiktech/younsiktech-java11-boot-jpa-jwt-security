@@ -15,25 +15,30 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JoinFormula;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(value = {AuditingEntityListener.class})
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -59,7 +64,7 @@ public class User {
     private String nickname;
 
     // 숫자로만 입력
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", length = 20, nullable = false)
     private String phoneNumber;
 
     @Column(name = "gender")
@@ -86,7 +91,11 @@ public class User {
     @JsonSerialize(using = ISODateTimeSerializer.class)
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinFormula("(SELECT p.id FROM purchases as p WHERE p.user_id = id ORDER BY p.payment_date DESC LIMIT 1)")
+    private Purchase purchase;
+    
     public UserObject toObject() {
         return UserObject.builder()
             .id(id)

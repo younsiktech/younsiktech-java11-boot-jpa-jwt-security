@@ -4,6 +4,7 @@ import com.tech.younsik.dto.object.LoginObject;
 import com.tech.younsik.dto.request.LoginRequest;
 import com.tech.younsik.dto.response.LoginResponse;
 import com.tech.younsik.service.AuthService;
+import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/v1/login")
+    @ApiOperation(value = "유저 로그인", notes = "Email과 Password를 통해서 로그인한다.")
     public LoginResponse loginUserV1(@Valid @RequestBody LoginRequest loginRequest) {
         return new LoginResponse(login(loginRequest));
     }
