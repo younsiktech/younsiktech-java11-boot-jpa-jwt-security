@@ -11,7 +11,7 @@ spring:
       connection-test-query: select 1
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate:
       use-new-id-generator-mappings: false
       naming:
