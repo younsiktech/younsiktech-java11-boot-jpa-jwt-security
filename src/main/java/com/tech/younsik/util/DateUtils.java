@@ -40,32 +40,6 @@ public class DateUtils {
         return DateUtils.toZone(time, fromZone, ZoneOffset.UTC);
     }
     
-    public static LocalDateTime getFirstDateTime(int year, int month, int day) {
-        ZonedDateTime firstDateTime =
-            ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.of("Asia/Seoul"));
-        return firstDateTime.toLocalDateTime();
-    }
-    
-    public static LocalDateTime getLastDateTime(int year, int month, int day) {
-        ZonedDateTime firstDateTime =
-            ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.of("Asia/Seoul"));
-        ZonedDateTime lastDateTime = firstDateTime.plusDays(1).minusNanos(1);
-        return lastDateTime.toLocalDateTime();
-    }
-    
-    public static LocalDateTime getFirstDateTime(int year, int month, int day, int hour) {
-        ZonedDateTime firstDateTime =
-            ZonedDateTime.of(year, month, day, hour, 0, 0, 0, ZoneId.of("Asia/Seoul"));
-        return firstDateTime.toLocalDateTime();
-    }
-    
-    public static LocalDateTime getLastDateTime(int year, int month, int day, int hour) {
-        ZonedDateTime firstDateTime =
-            ZonedDateTime.of(year, month, day, hour, 0, 0, 0, ZoneId.of("Asia/Seoul"));
-        ZonedDateTime lastDateTime = firstDateTime.plusHours(1).minusNanos(1);
-        return lastDateTime.toLocalDateTime();
-    }
-    
     public static long toEpochMilli(LocalDateTime localDateTime) {
         return localDateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
     }

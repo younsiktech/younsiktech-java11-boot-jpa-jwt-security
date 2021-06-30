@@ -53,8 +53,7 @@ public class PurchaseController {
 
     private PurchaseResponse create(PurchaseRequest purchaseRequest, String currentUser) {
         PurchaseObject purchaseObject = purchaseRequest.toObject();
-        purchaseObject.setEmail(currentUser);
-        return new PurchaseResponse(purchaseService.createPurchase(purchaseObject));
+        return new PurchaseResponse(purchaseService.createPurchase(purchaseObject, currentUser));
     }
 
     @GetMapping(path = "/v1/user/{userId}/purchases")
@@ -77,12 +76,11 @@ public class PurchaseController {
 
     }
 
-    private PagingResponse<PurchaseObject> showUserPurchases(Long userId, String email, PageRequest pageRequest) {
+    private PagingResponse<PurchaseObject> showUserPurchases(Long userId, String currentUser, PageRequest pageRequest) {
         PurchaseObject purchaseObject = PurchaseObject.builder()
             .userId(userId)
-            .email(email)
             .build();
-        return purchaseService.showPurchases(purchaseObject, pageRequest);
+        return purchaseService.showPurchases(purchaseObject, currentUser, pageRequest);
     }
 
 }
